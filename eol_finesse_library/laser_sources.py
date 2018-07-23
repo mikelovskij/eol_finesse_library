@@ -26,13 +26,13 @@ def modulated_laser(l_par, m_par, modes_dictionary=None,
     s s_i1 0.01 nin1 n_EOM_in            # space between laser and eom
 
     mod eom1 {m_par.freq} {m_par.midx} {m_par.order} {m_par.mode} {m_par.phase} n_EOM_in {output_node}
-    """
+    \n"""
 
     if modes_dictionary:
-        kat_code += "# ------- l1 tem modes -------------"
+        kat_code += "    #----- l1 tem modes ---------\n"
         for mode, settings in modes_dictionary.items():
             kat_code += (
-                "tem i1 {mode} {settings['pwr']} {settings['phase']}\n")
+                "    tem i1 {mode} {settings['pwr']} {settings['phase']}\n")
 
     if print_code:
         print(kat_code)
@@ -70,32 +70,32 @@ def shifted_lasers(l1_par, l2_par, l3_par,
     kat_code = f"""
     #--------------> Laser 1 <--------------------
     l i1 {l1_par.power} {l1_par.freq} {l1_par.phase} nin1    # main laser
-    s sBS1 0.01 nin1 nBS1_in"""
+    s sBS1 0.01 nin1 nBS1_in\n"""
     if l1_modes_dictionary:
-        kat_code += "# ------- l1 tem modes -------------"
+        kat_code += "    #----- l1 tem modes ---------\n"
         for mode, settings in l1_modes_dictionary.items():
             kat_code += (
-                f"tem i1 {mode} {settings['pwr']} {settings['phase']}\n")
+                f"    tem i1 {mode} {settings['pwr']} {settings['phase']}\n")
 
     kat_code += f"""    
     #--------------> Laser 2 <--------------------
     l i2 {l2_par.power} {l2_par.freq} {l2_par.phase} nin2    # sideband laser 1
-    s sBS2 0.01 nin2 nBS2_in"""
+    s sBS2 0.01 nin2 nBS2_in\n"""
     if l2_modes_dictionary:
-        kat_code += "# ------- l2 tem modes -------------"
+        kat_code += "    #----- l2 tem modes --------\n"
         for mode, settings in l2_modes_dictionary.items():
             kat_code += (
-                f"tem i2 {mode} {settings['pwr']} {settings['phase']}\n")
+                f"    tem i2 {mode} {settings['pwr']} {settings['phase']}\n")
 
     kat_code += f"""    
     #--------------> Laser 3 <--------------------
     l i3 {l3_par.power} {l3_par.freq} {l3_par.phase} nin3    # sideband laser 2
-    s sBS3 0.01 nin3 nBS2_4"""
+    s sBS3 0.01 nin3 nBS2_4\n"""
     if l3_modes_dictionary:
-        kat_code += "# ------- l3 tem modes -------------"
+        kat_code += "    #----- l3 tem modes --------\n"
         for mode, settings in l3_modes_dictionary.items():
             kat_code += (
-                f"tem i3 {mode} {settings['pwr']} {settings['phase']}\n")
+                f"    tem i3 {mode} {settings['pwr']} {settings['phase']}\n")
 
     kat_code += f"""
     #----------------------------> Beam Splitter 1 <--------------------------
@@ -103,8 +103,7 @@ def shifted_lasers(l1_par, l2_par, l3_par,
     #----------------------------> Beam Splitter 2 <--------------------------
     bs BS2 0.5 0.5 0 0 nBS2_in nBS2_2 nBS2_3 nBS2_4 
     #----------------------------> BS length connections <--------------------
-    s sBS21 0.1 nBS1_4 nBS2_2
-    """
+    s sBS21 0.1 nBS1_4 nBS2_2\n"""
 
     if print_code:
         print(kat_code)

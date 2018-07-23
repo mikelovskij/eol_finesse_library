@@ -25,7 +25,7 @@ def angle_finder(l):
 def triangular_cavity_builder(cav_lengths, curv_radii, reflectivities,
                               in_node="c_in",
                               tra_node="c_tra",
-                              ref_node="ref_node",
+                              ref_node="c_ref",
                               print_code=False):
     """ Builds the kat code for a triangular cavity given some parameters.
 
@@ -44,11 +44,11 @@ def triangular_cavity_builder(cav_lengths, curv_radii, reflectivities,
                           /                 \
                          /                   \
                         /                     \
-                    bs_out-----s_c_bot------bs_in --- ref_node
+         tra_node----bs_out-----s_c_bot------bs_in --- in_node
              (R[1],  Rc[1])     (l[0])      (R[2],  Rc[2])
-                     /                           \
-                    /                             \
-                tra_node                       in_node
+                                                 \
+                                                  \
+                                               ref_node
 
     Args:
         cav_lengths(list of floats): length of the sides of a cavity in meters.
@@ -74,8 +74,8 @@ def triangular_cavity_builder(cav_lengths, curv_radii, reflectivities,
     #-------------------------> Triangular Cavity <---------------------------
     
     # -------- cavity mirrors/beamsplitters ----------
-    bs bs_in  {R[2]:.4f} {T[2]:.4f}  0  {a[2]:.3f}  {in_node}     {ref_node}    b_in_3   b_in_4   # cavity "input" left base beam splitter
-    bs bs_out {R[1]:.4f} {T[1]:.4f}  0  {a[1]:.3f}  b_out_1  {tra_node}    b_out_3  b_out_4  # cavity "output" right base beam splitter
+    bs bs_in  {R[2]:.4f} {T[2]:.4f}  0  {a[2]:.3f}  {ref_node}     {in_node}    b_in_3   b_in_4   # cavity "input" left base beam splitter
+    bs bs_out {R[1]:.4f} {T[1]:.4f}  0  {a[1]:.3f}  {tra_node}  b_out_2    b_out_3  b_out_4  # cavity "output" right base beam splitter
     bs bs_end {R[0]:.4f} {T[0]:.4f}  0  {a[0]:.3f}  b_end_1  b_end_2  b_end_3  b_end_4     # cavity end mirror
     
     
