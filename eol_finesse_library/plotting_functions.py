@@ -7,12 +7,11 @@ import matplotlib.pyplot as plt
 matplotlib.interactive(True)
 
 
-def plot_powers(outputs):
-    for pref, title in {'adt': 'Transmitted', 'adr': 'Reflected'}.items():
+def plot_powers(outputs, title =' power for each mode',save_plot=False):
+    for pref, plot_name in {'adt': 'Transmitted', 'adr': 'Reflected'}.items():
         fig, ax = plt.subplots(2, 1, figsize=(10, 6))
         matplotlib.rcParams['font.size'] = 12
-        # plt.plot(outTF.x, Pdt, outTF.x, Pt00, outTF.x,
-        #         Pt10, outTF.x, Pt01,label = 'ddd')
+        suptitle = plot_name + title
 
         for name, out in outputs.items():
             # --- HOMs plotting
@@ -56,12 +55,14 @@ def plot_powers(outputs):
             # ax[1].plot(out.x, np.abs(out[pref + 'SB-1'])**2,
             #            label = name + '-SB11')
         for a in ax:
-            a.legend(loc=0, fontsize='small')
+            a.legend(loc=0, fontsize='x-small')
             a.set_ylabel(' Power [W]')
             a.grid()
             a.set_xticks(np.arange(out.x[0], out.x[-1] + 45, 45))
-        ax[-1].set_xlabel(' Phase [Deg]')
-        fig.suptitle(title + ' power')
+        ax[-1].set_xlabel(' Mirror phase detuning [Deg]')
+        fig.suptitle(suptitle)
+        if save_plot:
+            fig.savefig(suptitle + ".png")
 
 
 def plot_pdh(outputs, suptitle='PDH error signal', save_plot=False):
@@ -71,8 +72,8 @@ def plot_pdh(outputs, suptitle='PDH error signal', save_plot=False):
         ax.plot(out.x, out['inphase'], label=f'{name} Inphase')
         ax.plot(out.x, out['quadrature'], label=f'{name} Quadrature')
     ax.legend(loc=0, fontsize='small')
-    ax.set_ylabel(' Power [W]')
-    ax.set_xlabel(' Phase [Deg]')
+    ax.set_ylabel(' Demodulated Power [W * V ??]')
+    ax.set_xlabel(' Mirror phase detuning [Deg]')
     ax.set_xticks(np.arange(out.x[0], out.x[-1] + 45, 45))
     ax.grid()
     fig.suptitle(suptitle)
@@ -80,23 +81,25 @@ def plot_pdh(outputs, suptitle='PDH error signal', save_plot=False):
         fig.savefig(suptitle + ".png")
 
 
-def plot_total_powers(outputs):
+def plot_total_powers(outputs, suptitle='Total Powers', save_plot=False):
     fig, ax = plt.subplots(1, 1, figsize=(10, 6))
     matplotlib.rcParams['font.size'] = 16
     for name, out in outputs.items():
         ax.plot(out.x, out['PDr'], label=name + ' Refl')
         ax.plot(out.x, out['PDt'], label=name + ' Tra')
-        ax.plot(out.x, out['PDout2'], label=name + ' out2')
+        #ax.plot(out.x, out['PDout2'], label=name + ' reverse_tra')
         ax.plot(out.x, out['PDinput_refl'], label=name + ' input_backrefl')
-        ax.plot(out.x, out['PDend_tra1'], label=name + ' end_mirror_tra_1')
-        ax.plot(out.x, out['PDend_tra2'], label=name + ' end_mirror_tra_2')
+        ax.plot(out.x, out['PDend_tra1'], label=name + ' end_mirror_tra')
+        #ax.plot(out.x, out['PDend_tra2'], label=name + ' end_mirror_tra_2')
 
     ax.set_ylabel(' Power [W]')
-    ax.set_xlabel('Phase [Deg]')
+    ax.set_xlabel('Mirror phase detuning [Deg]')
     ax.set_xticks(np.arange(out.x[0], out.x[-1] + 45, 45))
-    ax.legend(loc=0, fontsize='small')
+    ax.legend(loc=0, fontsize='x-small')
     ax.grid()
-
+    fig.suptitle(suptitle)
+    if save_plot:
+        fig.savefig(suptitle + ".png")
 
 
 def plot_tf(outputs):
