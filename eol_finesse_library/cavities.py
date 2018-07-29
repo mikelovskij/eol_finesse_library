@@ -91,7 +91,7 @@ def triangular_cavity_builder(cav_lengths, curv_radii, reflectivities,
     attr bs_out  Rc {Rc[1]}  # come funzia la convenz dei segni negli RC dei bs?
     
     
-    # cavity parameters and modes tracing
+     #cavity parameters and modes tracing
     cav cav1 bs_in b_in_3 bs_in b_in_4
     cp cav1 x finesse
     cp cav1 x w0
