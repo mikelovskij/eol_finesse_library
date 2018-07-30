@@ -1,6 +1,5 @@
 name: py36
 channels:
-  - file:///home/mikelovskij/.local/Anaconda/envs/py36/conda-bld
   - gwoptics
   - conda-forge
   - defaults
@@ -265,7 +264,6 @@ dependencies:
   - zeromq=4.2.5=h439df22_0
   - zict=0.1.3=py36h3a3bf81_0
   - zlib=1.2.11=ha838bed_2
-  - cavparams=0.0.3=py36_0
   - finesse=2.2=hd0a936e_11
   - pykat=1.1.238=pyh052b312_0
   - pip:
