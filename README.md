@@ -1,3 +1,5 @@
+[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/mikelovskij/eol_finesse_library/python3.4support)
+
 # eol_finesse_library
 some useful functions to generate .kat scripts for the study of a triangular cavity matching.
 
