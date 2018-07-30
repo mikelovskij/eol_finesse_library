@@ -10,8 +10,7 @@ setup(
     author_email='michele.valentini@unitn.it',
     description=('some useful functions to generate .kat scripts for '
                  'the study of a triangular cavity matching.'),
-    install_requires=["numpy>=1.14.5",
-                      "matplotlib>=2.2.2",
-                      "ipympl>=0.1.1"],
-    python_requires='>=3.6'
+    install_requires=["numpy>=1.11.3",
+                      "matplotlib>=2.0.0"],
+    python_requires='>=3.4'
 )

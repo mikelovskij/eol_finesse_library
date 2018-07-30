@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib
-import ipympl
+#import ipympl
+#matplotlib.use("notebook")
 # matplotlib.use("agg")
 import matplotlib.pyplot as plt
 
@@ -127,8 +128,8 @@ def plot_pdh(outputs, suptitle='PDH error signal', save_plot=False):
     fig, ax = plt.subplots(1, 1, figsize=(10, 6))
     matplotlib.rcParams['font.size'] = 12
     for name, out in outputs.items():
-        ax.plot(out.x, out['inphase'], label=f'{name} Inphase')
-        ax.plot(out.x, out['quadrature'], label=f'{name} Quadrature')
+        ax.plot(out.x, out['inphase'], label='{} Inphase'.format(name))
+        ax.plot(out.x, out['quadrature'], label='{} Quadrature'.format(name))
     ax.legend(loc=0, fontsize='small')
     ax.set_ylabel(' Demodulated Power [W * V ??]')
     ax.set_xlabel(' Mirror phase detuning [Deg]')
@@ -144,8 +145,8 @@ def plot_lens_sweep(outputs, suptitle=' error signal', save_plot=False):
     fig, ax = plt.subplots(1, 1, figsize=(10, 6))
     matplotlib.rcParams['font.size'] = 12
     for name, out in outputs.items():
-        ax.plot(out.x, out['inphase'], label=f'{name} Inphase')
-        ax.plot(out.x, out['quadrature'], label=f'{name} Quadrature')
+        ax.plot(out.x, out['inphase'], label='{} Inphase'.format(name))
+        ax.plot(out.x, out['quadrature'], label='{} Quadrature'.format(name))
     ax.legend(loc=0, fontsize='small')
     ax.set_ylabel(' Demodulated Power [W * V ??]')
     ax.set_xlabel(' 1/focal [1/m]')
@@ -267,21 +268,21 @@ def plot_matching_sweeps(lens_sw, z_sw, zr_sw,
                          lens_match=0, z_match=0, zr_match=0.1,
                          suptitle=' Horror signal',
                          save_plot=False):
-    fig, ax = plt.subplots(3, 1, figsize=(12, 9))
+    fig, ax = plt.subplots(3, 1, figsize=(10, 9))
     matplotlib.rcParams['font.size'] = 12
     for name, out in lens_sw.items():
-        ax[0].plot(out.x, out['inphase'], label=f'{name} Inphase')
-        ax[0].plot(out.x, out['quadrature'], label=f'{name} Quadrature')
+        ax[0].plot(out.x, out['inphase'], label='{} Inphase'.format(name))
+        ax[0].plot(out.x, out['quadrature'], label='{} Quadrature'.format(name))
         ax[0].set_xlabel(' 1/focal [1/m]')
         ax[0].vlines(lens_match, -0.12, 0.12, label="cavity modes")
     for name, out in z_sw.items():
-        ax[1].plot(out.x, out['inphase'], label=f'{name} Inphase')
-        ax[1].plot(out.x, out['quadrature'], label=f'{name} Quadrature')
+        ax[1].plot(out.x, out['inphase'], label='{} Inphase'.format(name))
+        ax[1].plot(out.x, out['quadrature'], label='{} Quadrature'.format(name))
         ax[1].set_xlabel(' z + z_match [m]')
         ax[1].vlines(z_match, -0.12, 0.12, label="cavity modes")
     for name, out in zr_sw.items():
-        ax[2].plot(out.x, out['inphase'], label=f'{name} Inphase')
-        ax[2].plot(out.x, out['quadrature'], label=f'{name} Quadrature')
+        ax[2].plot(out.x, out['inphase'], label='{} Inphase'.format(name))
+        ax[2].plot(out.x, out['quadrature'], label='{} Quadrature'.format(name))
         ax[2].set_xlabel(' zr [m]')
         ax[2].vlines(zr_match, -0.12, 0.12, label="cavity modes")
 
@@ -302,27 +303,27 @@ def plot_matching_sweeps_diffs(lens_sw, z_sw, zr_sw,
                                lens_match=0, z_match=0, zr_match=0.1,
                                suptitle=' Horror signal derivatives',
                                save_plot=False):
-    fig, ax = plt.subplots(3, 1, figsize=(12, 9))
+    fig, ax = plt.subplots(3, 1, figsize=(10, 9))
     matplotlib.rcParams['font.size'] = 12
     for name, out in lens_sw.items():
         ax[0].plot(out.x, np.gradient(out['inphase'], out.x),
-                   label=f'{name} Inphase derivative')
+                   label='{} Inphase derivative'.format(name))
         ax[0].plot(out.x, np.gradient(out['quadrature'], out.x),
-                   label=f'{name} Quadrature derivative')
+                   label='{} Quadrature derivative'.format(name))
         ax[0].set_xlabel(' 1/focal [1/m]')
         ax[0].vlines(lens_match, -0.07, 0.07, label="cavity modes")
     for name, out in z_sw.items():
         ax[1].plot(out.x, np.gradient(out['inphase'], out.x),
-                   label=f'{name} Inphase derivative')
+                   label='{} Inphase derivative'.format(name))
         ax[1].plot(out.x, np.gradient(out['quadrature'], out.x),
-                   label=f'{name} Quadrature derivative')
+                   label='{} Quadrature derivative'.format(name))
         ax[1].set_xlabel(' z + z_match [m]')
         ax[1].vlines(z_match, -0.07, 0.07, label="cavity modes")
     for name, out in zr_sw.items():
         ax[2].plot(out.x, np.gradient(out['inphase'], out.x),
-                   label=f'{name} Inphase derivative')
+                   label='{} Inphase derivative'.format(name))
         ax[2].plot(out.x, np.gradient(out['quadrature'], out.x),
-                   label=f'{name} Quadrature derivative')
+                   label='{} Quadrature derivative'.format(name))
         ax[2].set_xlabel(' zr [m]')
         ax[2].vlines(zr_match, -0.07, 0.07, label="cavity modes")
 
@@ -345,7 +346,7 @@ def plot_beam_params(out_dict, suptitle="some beam parameters",
         z_dict = {'l_in_z': 'l_in_z', 'l_out_z': 'l_out_z'}
     if zr_dict is None:
         zr_dict = {'l_in_zr': 'l_in_zr', 'l_out_zr': 'l_out_zr'}
-    fig, ax = plt.subplots(2, 1, figsize=(12, 9))
+    fig, ax = plt.subplots(2, 1, figsize=(10, 9))
     matplotlib.rcParams['font.size'] = 12
     for name, out in out_dict.items():
         for sens_name, sens in z_dict.items():
@@ -458,7 +459,7 @@ def plot_trans_refl_phase_2(outputs,
 def plot_overview(outputs,
                   suptitle="Lens sweep overview",
                   save_plot=False):
-    fig, ax = plt.subplots(3, 1, figsize=(12, 8))
+    fig, ax = plt.subplots(3, 1, figsize=(10, 8))
     matplotlib.rcParams['font.size'] = 16
     minorlocator = matplotlib.ticker.AutoMinorLocator(2)
     for name, out in outputs.items():
@@ -466,8 +467,8 @@ def plot_overview(outputs,
         ax[1].set_ylabel("Reflected Powers [W}")
         ax[2].set_ylabel("Reflected Phases [W}")
         pref = 'adr'
-        ax[0].plot(out.x, out['inphase'], label=f'{name} Inphase')
-        ax[0].plot(out.x, out['quadrature'], label=f'{name} Quadrature')
+        ax[0].plot(out.x, out['inphase'], label='{} Inphase'.format(name))
+        ax[0].plot(out.x, out['quadrature'], label='{} Quadrature'.format(name))
         # ax[0].plot(out.x, out['PDt'], label='Total ' + name + ' Tra')
         ax[1].plot(out.x, out['PDr'], label='Total ' + name + ' Refl',
                    color='C9')
